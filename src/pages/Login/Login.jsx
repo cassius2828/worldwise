@@ -1,4 +1,7 @@
+import { useState } from "react";
 import styles from "./Login.module.css";
+import PageNav from "../../components/PageNav/PageNav";
+import { NavLink } from "react-router-dom";
 
 export default function Login() {
   // PRE-FILL FOR DEV PURPOSES
@@ -7,6 +10,7 @@ export default function Login() {
 
   return (
     <main className={styles.login}>
+      <PageNav />
       <form className={styles.form}>
         <div className={styles.row}>
           <label htmlFor="email">Email address</label>
@@ -29,7 +33,9 @@ export default function Login() {
         </div>
 
         <div>
-          <button>Login</button>
+          <NavLink to="/app">
+            <button>Login</button>
+          </NavLink>
         </div>
       </form>
     </main>
