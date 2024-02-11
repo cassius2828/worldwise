@@ -1,6 +1,8 @@
 import { useParams } from "react-router-dom";
 import styles from "./City.module.css";
 import Spinner from "../Spinner/Spinner";
+import { useCitiesContext } from "../../customHooks/useCitiesContext";
+import BackButton from "../BackButton/BackButton";
 
 const formatDate = (date) =>
   new Intl.DateTimeFormat("en", {
@@ -10,7 +12,7 @@ const formatDate = (date) =>
     weekday: "long",
   }).format(new Date(date));
 
-function City({ cities, isLoading }) {
+function City() {
   // solved this all on my own...nice
   /*
   Issues overcame were
@@ -21,6 +23,7 @@ function City({ cities, isLoading }) {
 
   */
   const { id } = useParams();
+  const { cities, isLoading } = useCitiesContext();
   // TEMP DATA
   // const currentCity = {
   //   cityName: "Lisbon",
@@ -28,20 +31,19 @@ function City({ cities, isLoading }) {
   //   date: "2027-10-31T15:59:59.138Z",
   //   notes: "My favorite city so far!",
   // };
+
   if (isLoading) return <Spinner />;
 
   if (!cities.length) return "Loading...";
 
-  const selectedCity = cities.filter((city) => {
-    if (city.id === id) return city;
-  });
+  const selectedCity = cities.filter((city) => city.id === id);
 
   const { cityName, emoji, date, notes } = selectedCity[0];
 
   return (
     <div className={styles.city}>
       <div className={styles.row}>
-        <h6>{cityName}</h6>
+        <h6>City Name</h6>
         <h3>
           <span>{emoji}</span> {cityName}
         </h3>
@@ -70,7 +72,9 @@ function City({ cities, isLoading }) {
         </a>
       </div>
 
-      <div>{/* <ButtonBack /> */}</div>
+      <div>
+        <BackButton />
+      </div>
     </div>
   );
 }

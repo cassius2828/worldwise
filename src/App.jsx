@@ -9,8 +9,9 @@ import Login from "./pages/Login/Login";
 import CityList from "./components/CityList/CityList";
 import CountryList from "./components/CountryList/CountryList";
 import Form from "./components/Form/Form";
-import { useEffect, useState } from "react";
 import City from "./components/City/City";
+import CitiesProvider from "./Context/CitiesContext";
+
 // const API_KEY = import.meta.env.VITE_API_KEY;
 
 // const url =
@@ -24,68 +25,31 @@ import City from "./components/City/City";
 //   },
 // // };
 
-const url = `http://localhost:8090`;
-const options = {
-  method: "GET",
-  headers: {
-    "Content-Type": "application/json",
-  },
-};
-
 function App() {
-  const [cities, setCities] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  useEffect(() => {
-    const fetchCities = async () => {
-      try {
-        setIsLoading(true);
-        const response = await fetch(`${url}/cities`, options);
-        const data = await response.json();
-        setCities(data);
-      } catch (error) {
-        // console.error('ERROR FETCHING DATA');
-        console.log(error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    fetchCities();
-  }, []);
-  console.log(cities);
-
   return (
     <>
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<Homepage />} />
-          <Route path="product" element={<Product />} />
-          <Route path="pricing" element={<Pricing />} />
-          <Route path="app" element={<AppLayout />}>
-            {/* outlet */}
-            <Route
-              index
-              element={<Navigate
-              replace to='cities'
-              />}
-            />
-            <Route
-              path="cities"
-              element={<CityList isLoading={isLoading} cities={cities} />}
-            />
-            <Route path="cities/:id" element={<City
-            cities={cities}
-            />} />
-            <Route
-              path="countries"
-              element={<CountryList cities={cities} isLoading={isLoading} />}
-            />
-            <Route path="form" element={<Form/>} />
-            {/* joutlet */}
-          </Route>
-          <Route path="login" element={<Login />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </BrowserRouter>
+      <CitiesProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route index element={<Homepage />} />
+            <Route path="product" element={<Product />} />
+            <Route path="pricing" element={<Pricing />} />
+            <Route path="app" element={<AppLayout />}>
+              {/* outlet */}
+
+              <Route index element={<Navigate replace to="cities" />} />
+              <Route path="cities" element={<CityList />} />
+              <Route path="cities/:id" element={<City  />} />
+              <Route path="countries" element={<CountryList />} />
+              <Route path="form" element={<Form />} />
+
+              {/* joutlet */}
+            </Route>
+            <Route path="login" element={<Login />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </BrowserRouter>
+      </CitiesProvider>
     </>
   );
 }

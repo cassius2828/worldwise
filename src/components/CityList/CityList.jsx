@@ -2,9 +2,12 @@ import styles from "./CityList.module.css";
 import Spinner from "../Spinner/Spinner";
 import CityItem from "../CityItem/CityItem";
 import Message from "../Message/Message";
+import { useCitiesContext } from "../../customHooks/useCitiesContext";
 
-const CityList = ({ cities, isLoading }) => {
+const CityList = () => {
   // console.log(cities)
+
+  const { cities, isLoading } = useCitiesContext();
   if (isLoading) return <Spinner />;
 
   // THis conditional early return ensures that if there is no data, then we have something to load
@@ -14,8 +17,6 @@ const CityList = ({ cities, isLoading }) => {
     return (
       <Message message="Add your first city by clicking on a city on the map" />
     );
-
- 
 
   return (
     <ul className={styles.cityList}>
