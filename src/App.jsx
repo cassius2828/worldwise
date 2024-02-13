@@ -11,6 +11,7 @@ import CountryList from "./components/CountryList/CountryList";
 import Form from "./components/Form/Form";
 import City from "./components/City/City";
 import CitiesProvider from "./Context/CitiesContext";
+import UserLocCard from "./components/UserLocCard/UserLocCard";
 
 // const API_KEY = import.meta.env.VITE_API_KEY;
 
@@ -36,7 +37,7 @@ function App() {
             <Route path="pricing" element={<Pricing />} />
             <Route path="app" element={<AppLayout />}>
               {/* outlet */}
-
+              <Route path="current_location/" element={<UserLocCard/>}/>
               <Route index element={<Navigate replace to="cities" />} />
               <Route path="cities" element={<CityList />} />
               <Route path="cities/:id" element={<City  />} />

@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import styles from "./City.module.css";
+import styles from "./UserLocCard.module.css";
 import Spinner from "../Spinner/Spinner";
 import { useCitiesContext } from "../../customHooks/useCitiesContext";
 import BackButton from "../BackButton/BackButton";
@@ -12,7 +12,7 @@ const formatDate = (date) =>
     weekday: "long",
   }).format(new Date(date));
 
-function City() {
+function UserLocCard() {
   // solved this all on my own...nice
   /*
   Issues overcame were
@@ -29,40 +29,29 @@ function City() {
 
   if (!cities.length) return "Loading...";
 
-  // the stricy equality caused issues since one was a string and the other was a number
-  const selectedCity = cities.filter((city) => city.id == id);
-
-  const { cityName, emoji, date, notes } = selectedCity[0];
-
   return (
     <div className={styles.city}>
       <div className={styles.row}>
         <h6>City Name</h6>
         <h3>
-          <span>{emoji}</span> {cityName}
+          <span>{`emoji`}</span> {`city name`}
         </h3>
       </div>
 
       <div className={styles.row}>
-        <h6>You went to {cityName} on</h6>
-        <p>{formatDate(date || null)}</p>
+        <h6>You went to {`balnk`} on</h6>
+        <p>today</p>
+        {/* <p>{formatDate(date || null)}</p> */}
       </div>
-
-      {notes && (
-        <div className={styles.row}>
-          <h6>Your notes</h6>
-          <p>{notes}</p>
-        </div>
-      )}
 
       <div className={styles.row}>
         <h6>Learn more</h6>
         <a
-          href={`https://en.wikipedia.org/wiki/${cityName}`}
+          //   href={`https://en.wikipedia.org/wiki/${cityName}`}
           target="_blank"
           rel="noreferrer"
         >
-          Check out {cityName} on Wikipedia &rarr;
+          Check out {`this city name`} on Wikipedia &rarr;
         </a>
       </div>
 
@@ -73,4 +62,4 @@ function City() {
   );
 }
 
-export default City;
+export default UserLocCard;

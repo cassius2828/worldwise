@@ -10,14 +10,18 @@ const formatDate = (date) => {
   return finalDate;
 };
 const CityItem = ({ city }) => {
-  const { currentCity, setCurrentCity } = useCitiesContext();
+  const { currentCity, setCurrentCity, deleteCity } = useCitiesContext();
   const { cityName, emoji, date, id, position } = city;
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    deleteCity(id);
+  };
 
   return (
     <li>
       <Link
         onClick={() => {
-          console.log(currentCity === id);
           setCurrentCity(id);
         }}
         // I was failing to use the template literal correct so I changed his css class name to active instead of cityItem--active
@@ -34,7 +38,12 @@ const CityItem = ({ city }) => {
         <span className={styles.emoji}>{emoji}</span>
         <h3 className={styles.name}>{cityName}</h3>
         <time className={styles.date}>{formatDate(date)}</time>
-        <button className={styles.deleteBtn}>&times;</button>
+        <button
+          onClick={handleClick}
+          className={styles.deleteBtn}
+        >
+          &times;
+        </button>
       </Link>
     </li>
   );
